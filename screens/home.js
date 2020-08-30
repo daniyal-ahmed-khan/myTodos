@@ -63,6 +63,18 @@ export default class Home extends React.Component {
     const newList = prevTodos.filter(todo => todo.key != key);
 
     this.setState({ todos: newList });
+
+    const todoText = [];
+      newList.map((item) => {
+        todoText.push(item.text);
+      });
+
+    firebase.firestore().
+    collection("user1").
+    doc(this.state.currentUser.uid).
+    update({
+      todos: todoText
+    })
   }
 
   submitHandler = (text) => {
@@ -75,22 +87,16 @@ export default class Home extends React.Component {
       ];
       this.setState({ todos: newList });
 
-
-
-
       const todoText = [];
       newList.map((item) => {
         todoText.push(item.text);
       });
       console.log(todoText);
       
-
-
-
-
-      firebase.firestore().collection("user1").doc(this.state.currentUser.uid).update({
-
-
+      firebase.firestore().
+      collection("user1").
+      doc(this.state.currentUser.uid).
+      update({
         todos: todoText
       })
 
@@ -115,7 +121,8 @@ export default class Home extends React.Component {
         <View style={styles.container}>
 
           <View style={styles.content}>
-            <Text>logged in as, {this.state.userEmail}</Text>
+            <Text style={{fontSize: 18 }}>logged in as, {this.state.userEmail}</Text>
+            <Button style={styles.logout} title="Logout" onPress={this.signOutUser}>Logout</Button> 
 
             <Text style={{
               borderBottomWidth: 2,
@@ -135,18 +142,11 @@ export default class Home extends React.Component {
               </FlatList>
             </View>
             <AddTodo submitHandler={this.submitHandler} />
-             <Button title="Logout" onPress={this.signOutUser}>Logout</Button> 
+            
           </View>
 
         </View>
       </TouchableWithoutFeedback>
-      // <View style={styles.container}>
-      //   <Text style={{fontSize: 20}}> Hi <Text style={{color:'#e93766', fontSize: 20}}> 
-      //     {currentUser && currentUser.email}!
-      //   </Text></Text>
-
-      // <Button title="Logout" onPress={this.signOutUser}>Logout</Button>
-
     )
   }
 }
@@ -167,6 +167,10 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20,
+    borderColor: '#bbb',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingLeft: 15
   },
   logout: {
     width: 70,

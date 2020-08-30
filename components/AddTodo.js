@@ -21,7 +21,7 @@ export default function AddTodo({submitHandler}) {
     }
     return (
         <View>
-        
+    
             <Modal isVisible={isModalVisible}>
     
                 <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -40,7 +40,7 @@ export default function AddTodo({submitHandler}) {
            
             </Modal> 
       
-            <IonIcons name='add-circle' size={70} color='green' style={{position:'absolute', right: 20, }} onPress={toggleModal }/>
+            <IonIcons name='add-circle' size={70} color='green' style={{position:'absolute', right: 20, top: 5 }} onPress={toggleModal }/>
             
         </View>
     )

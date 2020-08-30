@@ -5,15 +5,18 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default function TodoItem({item, pressHandler}) {
     return (
     <TouchableOpacity activeOpacity={0.8} onPress={() => pressHandler(item.key)} >
-        <View  style={styles.item}>
-            <MaterialIcons name='delete' size={25} color='white' style={styles.bin}/>
-            <Text style={styles.itemText}>{item.text}</Text>
-        </View>
+
+            <View  style={styles.item}>
+                <MaterialIcons name='delete' size={25} color='white' style={styles.bin}/>
+                <Text style={styles.itemText}>{item.text}</Text>
+            </View>
+      
     </TouchableOpacity>
     ) 
 }
 
 const styles = StyleSheet.create({
+   
     item: {
         flexDirection: 'row',
     },
