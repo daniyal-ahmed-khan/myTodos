@@ -31,6 +31,7 @@ export default class Home extends React.Component {
     this.setState({ currentUser });
     this.setState({ userEmail: email });
    
+    //firebase.firestore().create().doc('VneX9amb5beQXOYer0KD6MSwst62');
 
     firebase.firestore()
       .collection('user1')
@@ -57,7 +58,7 @@ export default class Home extends React.Component {
     }
   }
   pressHandler = (key) => {
-
+    
     const prevTodos = this.state.todos;
 
     const newList = prevTodos.filter(todo => todo.key != key);
@@ -68,6 +69,8 @@ export default class Home extends React.Component {
       newList.map((item) => {
         todoText.push(item.text);
       });
+    
+   
 
     firebase.firestore().
     collection("user1").
@@ -75,6 +78,8 @@ export default class Home extends React.Component {
     update({
       todos: todoText
     })
+
+
   }
 
   submitHandler = (text) => {
@@ -93,12 +98,23 @@ export default class Home extends React.Component {
       });
       console.log(todoText);
       
-      firebase.firestore().
-      collection("user1").
-      doc(this.state.currentUser.uid).
-      update({
-        todos: todoText
-      })
+      if (this.state.todos[0].text == ''){
+        firebase.firestore().
+        collection("user1").
+        doc(this.state.currentUser.uid).
+        set({
+          todos: todoText
+        })
+      }
+      else {
+        firebase.firestore().
+        collection("user1").
+        doc(this.state.currentUser.uid).
+        update({
+          todos: todoText
+        })
+      }
+      
 
       // firebase.database().ref("user1/").
       // set({
